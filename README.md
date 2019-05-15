@@ -2,8 +2,8 @@
 Simple library for generating Boostrap 4 paginated tables in Codeigniter using base model and pagination classes from @yidas
 
 ### Requires
-https://github.com/yidas/codeigniter-model
-https://github.com/yidas/php-pagination
+1. https://github.com/yidas/codeigniter-model
+2. https://github.com/yidas/php-pagination
 
 ## Usage 
 
@@ -25,7 +25,7 @@ $this->table_builder->setHeading('id', array(
 ));
 
 $this->table_builder->setHeading('email', array(
-   'label' => 'Email Address',
+  'label' => 'Email Address',
   'callback' => function($value) {
     return mailto($value);
   }
