@@ -21,7 +21,7 @@ $this->table_builder->setData($this->db->from('db_table_name'), array(
   'base_url' => site_url('search'),
   'per_page' => 10,
   // OTHER CI PAGINATION CONFIG ITEMS
-)):
+));
 
 $this->table_builder->setHeading('id');
 $this->table_builder->setHeading('name', array(
