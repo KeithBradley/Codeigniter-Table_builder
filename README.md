@@ -6,6 +6,7 @@ Simple library for generating Boostrap 4 searchable, paginated tables in Codeign
 1. Upload the Table_builder.php library to application/libraries
 2. Either load in application/config/autoload.php or from a controller
 3. Ready to use
+4. OPTIONAL - If you'd like to use the search the other library https://github.com/KeithBradley/Codeigniter-Form_builder can help so add that.
 
 Example:
 
@@ -31,9 +32,18 @@ $this->table_builder->setHeading('name', array(
   }
 ));
 
+// OPTIONAL SEARCH (Install step #4)
+$this->table_builder->setSearchField(array(
+  'type' => 'text',
+  'input' => array(
+	'name' => 'keyword',
+	  'label' => 'Keyword...',
+		'value' => $this->input->get('keyword')
+	),
+));
+
 // THIS CAN ALSO BE CHAINED
 $this->table_builder->setHeading('id')->setHeading('name');
-
 
 // ON THE VIEW
 $this->table_builder->generate();
