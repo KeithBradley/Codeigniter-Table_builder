@@ -1,36 +1,41 @@
 # Codeigniter-Table_builder
-Simple library for generating Boostrap 4 paginated tables in Codeigniter using base model and pagination classes from @yidas
-
-### Requires
-1. https://github.com/yidas/codeigniter-model
-2. https://github.com/yidas/php-pagination
+Simple library for generating Boostrap 4 searchable, paginated tables in Codeigniter using base CI3 model and pagination classes.
 
 ## Usage 
 
-1. Composer install "yidas/codeigniter-model": "^2.18" and "yidas/pagination": "^1.0" and follow setup instructions from their repos
-2. Upload the Table_builder.php library to application/libraries
-3. Either load in application/config/autoload.php or from a controller
-4. Ready to use
+1. Upload the Table_builder.php library to application/libraries
+2. Either load in application/config/autoload.php or from a controller
+3. Ready to use
 
 Example:
 
 ~~~
-$data = $this->user_model->find();
 
-$this->table_builder->setData($data);
+// SEARCH
+if ( $this->input->get('keyword') ) {
+  $this->db->like('name', $this->input->get('keyword'));
+}
 
-$this->table_builder->setHeading('id', array(
-  'label' => 'ID',
-  'width' => '100',
-));
+$this->table_builder->setData($this->db->from('db_table_name'), array(
+  'base_url' => site_url('search'),
+  'per_page' => 10,
+  // OTHER CI PAGINATION CONFIG ITEMS
+)):
 
-$this->table_builder->setHeading('email', array(
-  'label' => 'Email Address',
-  'callback' => function($value) {
-    return mailto($value);
+$this->table_builder->setHeading('id');
+$this->table_builder->setHeading('name', array(
+  'label' => 'Some Name',
+  'callback' => function($value, $row_id)
+  {
+    return anchor('item/' . $row_id, $value);
   }
 ));
 
-echo $this->table_builder->generate(); // OR SEND TO VIEW
+// THIS CAN ALSO BE CHAINED
+$this->table_builder->setHeading('id')->setHeading('name');
+
+
+// ON THE VIEW
+$this->table_builder->generate();
 
 ~~~
